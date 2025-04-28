@@ -6,9 +6,9 @@ import { store } from '../redux/store'
 import { t } from 'i18next'
 import Router from 'next/router'
 
-export const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+//export const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
 
-//const baseUrl = 'http://stackfood.6am.one/react/api/v1/'
+const baseUrl = 'http://easinovation.com.ng/api/v1/'
 
 const MainApi = axios.create({
     baseURL: baseUrl,

@@ -49,15 +49,17 @@ const Home = ({ configData, landingPageData }) => {
 export default Home
 
 export const getServerSideProps = async (context) => {
-    const { req } = context
-    const language = req.cookies.languageSetting
+    const { req } = context;
+    const language = req.cookies.languageSetting;
+
+    const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://easinovation.com.ng";
 
     let configData = null;
     let landingPageData = null;
 
     try {
         const configRes = await fetch(
-            `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/config`,
+            `${BASE_URL}/api/v1/config`,
             {
                 method: 'GET',
                 headers: {
@@ -67,7 +69,7 @@ export const getServerSideProps = async (context) => {
                     origin: process.env.NEXT_CLIENT_HOST_URL,
                 },
             }
-        )
+        );
 
         if (!configRes.ok) {
             console.error('Error fetching config data:', configRes.status, configRes.statusText);
@@ -82,12 +84,12 @@ export const getServerSideProps = async (context) => {
 
     try {
         const landingPageRes = await fetch(
-            `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/landing-page`,
+            `${BASE_URL}/api/v1/landing-page`,
             {
                 method: 'GET',
                 headers: CustomHeader,
             }
-        )
+        );
 
         if (!landingPageRes.ok) {
             console.error('Error fetching landing page data:', landingPageRes.status, landingPageRes.statusText);

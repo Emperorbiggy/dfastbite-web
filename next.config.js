@@ -1,7 +1,7 @@
 module.exports = {
   reactStrictMode: true,
   images: {
-    domains: ['stackfood.6am.one'],
+    domains: ['easinovation.com.ng'],
     staticPageGenerationTimeout: 600, // Moderate timeout for static page generation (10 minutes)
   },
   webpack: (config, { isServer }) => {
