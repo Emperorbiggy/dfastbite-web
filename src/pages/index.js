@@ -52,27 +52,28 @@ export const getServerSideProps = async (context) => {
     const { req } = context;
     const language = req.cookies.languageSetting;
 
-    const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://easinovation.com.ng";
+    // Directly using the URL instead of process.env
+    const BASE_URL = "https://easinovation.com.ng";
 
     let configData = null;
     let landingPageData = null;
 
     try {
-        const configRes = await fetch(
-            `${BASE_URL}/api/v1/config`,
-            {
-                method: 'GET',
-                headers: {
-                    'X-software-id': 33571750,
-                    'X-server': 'server',
-                    'X-localization': language,
-                    origin: process.env.NEXT_CLIENT_HOST_URL,
-                },
-            }
-        );
+        const configUrl = `${BASE_URL}/api/v1/config`;
+        console.log(`Fetching config data from: ${configUrl}`); // Log full URL
+
+        const configRes = await fetch(configUrl, {
+            method: 'GET',
+            headers: {
+                'X-software-id': 33571750,
+                'X-server': 'server',
+                'X-localization': language,
+                origin: "https://easinovation.com.ng", // Set origin directly
+            },
+        });
 
         if (!configRes.ok) {
-            console.error('Error fetching config data:', configRes.status, configRes.statusText);
+            console.error(`Error fetching config data from ${configUrl}: ${configRes.status} ${configRes.statusText}`);
             throw new Error(`Failed to fetch config data: ${configRes.status}`);
         }
 
@@ -83,16 +84,16 @@ export const getServerSideProps = async (context) => {
     }
 
     try {
-        const landingPageRes = await fetch(
-            `${BASE_URL}/api/v1/landing-page`,
-            {
-                method: 'GET',
-                headers: CustomHeader,
-            }
-        );
+        const landingPageUrl = `${BASE_URL}/api/v1/landing-page`;
+        console.log(`Fetching landing page data from: ${landingPageUrl}`); // Log full URL
+
+        const landingPageRes = await fetch(landingPageUrl, {
+            method: 'GET',
+            headers: CustomHeader,
+        });
 
         if (!landingPageRes.ok) {
-            console.error('Error fetching landing page data:', landingPageRes.status, landingPageRes.statusText);
+            console.error(`Error fetching landing page data from ${landingPageUrl}: ${landingPageRes.status} ${landingPageRes.statusText}`);
             throw new Error(`Failed to fetch landing page data: ${landingPageRes.status}`);
         }
 
